@@ -1,0 +1,12 @@
+get_filename_component(@PROJECT_NAME@_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+if(NOT TARGET @PROJECT_NAME@::@PROJECT_NAME@)
+    include("${@PROJECT_NAME@_CMAKE_DIR}/@PROJECT_NAME@Targets.cmake")
+endif()
+
+# It is recommended to use target_link_libraries(<target> @PROJECT_NAME@::@PROJECT_NAME@) instead.
+set(@PROJECT_NAME@_LIBRARIES @PROJECT_NAME@::@PROJECT_NAME@)
+get_target_property(@PROJECT_NAME@_INCLUDE_DIRS @PROJECT_NAME@::@PROJECT_NAME@ INTERFACE_INCLUDE_DIRECTORIES)
